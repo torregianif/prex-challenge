@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '@/utils/useAuth';
 import Navbar from '@/components/NavBar';
+import styles from '../styles/ViewDashboard.module.css';
 
 interface File {
   id: string;
@@ -43,33 +44,45 @@ const myFiles: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
+    <div className={styles.container}>
       <Navbar />
-      <h1>Dashboard</h1>
+      <h1 className={styles.title}>Dashboard</h1>
 
       <h2>Uploaded Files</h2>
-      <ul>
-        {uploadedFiles.length >0 && uploadedFiles.map((file) => (
-          <li key={file.id}>
-            {file.name}
-            <button onClick={() => handleDeleteFile(file.id)}>Delete</button>
+      <ul className={styles.fileList}>
+        {uploadedFiles.length > 0 && uploadedFiles.map((file) => (
+          <li key={file.id} className={styles.fileItem}>
+            <span className={styles.fileName}>{file.name}</span>
+            <button
+              onClick={() => handleDeleteFile(file.id)}
+              className={styles.deleteButton}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
 
       <h2>Shared Files</h2>
-      <ul>
+      <ul className={styles.fileList}>
         {sharedFiles.map((file) => (
-          <li key={file.id}>
-            {file.name}
+          <li key={file.id} className={styles.fileItem}>
+            <span className={styles.fileName}>{file.name}</span>
             {file.ownerId === user?.id && (
-              <button onClick={() => handleDeleteFile(file.id)}>Delete</button>
+              <button
+                onClick={() => handleDeleteFile(file.id)}
+                className={styles.deleteButton}
+              >
+                Delete
+              </button>
             )}
           </li>
         ))}
       </ul>
-
     </div>
+  
+    </>
   );
 };
 

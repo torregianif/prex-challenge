@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/NavBar';
+import styles from '../styles/Dashboard.module.css';
 
 interface User {
   id: string;
@@ -88,36 +89,48 @@ console.log("selecteed", selectedUsers);
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <Navbar />
-      <h1>Dashboard</h1>
+      <h1 className={styles.title}>Dashboard</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <h2>Search Users</h2>
+          <input
+            type="text"
+            placeholder="Search users..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className={styles.searchInput}
+          />
 
-      <h2>Search Users</h2>
-      <input
-        type="text"
-        placeholder="Search users..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
-
-      <h2>Select Users to Share File With</h2>
-      <ul>
-        {filteredUsers.map((user) => (
-          <li key={user.id}>
-            <input
-              type="checkbox"
-              checked={selectedUsers.includes(user)}
-              onChange={() => handleUserSelect(user)}
-            />
-            {user.username}
-          </li>
-        ))}
-      </ul>
-
-      <h2>Upload File</h2>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleFileUpload}>Upload and Share</button>
-
+          <h2>Select Users to Share File With</h2>
+          <ul className={styles.userList}>
+            {filteredUsers.map((user) => (
+              <li key={user.id} className={styles.userItem}>
+                <input
+                  type="checkbox"
+                  checked={selectedUsers.includes(user)}
+                  onChange={() => handleUserSelect(user)}
+                  className={styles.checkbox}
+                />
+                {user.username}
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+          <h2>Upload File</h2>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            className={styles.fileInput}
+          />
+          <button onClick={handleFileUpload} className={styles.uploadButton}>
+            Upload and Share
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

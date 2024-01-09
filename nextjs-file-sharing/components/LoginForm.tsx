@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../utils/useAuth';
+import styles from '../styles/Form.module.css'; 
 
 interface LoginFormProps {
   onLogin?: () => void;
@@ -27,31 +28,30 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Username:
+    <div className={styles.formContainer}>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.inputGroup}>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
+            id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Password:
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
-        </label>
-      </div>
-      <button type="submit">Login</button>
-    </form>
+        </div>
+        <button type="submit" className={styles.submitButton}>Login</button>
+      </form>
+    </div>
   );
 };
 

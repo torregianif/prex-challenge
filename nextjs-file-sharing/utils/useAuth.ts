@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'; 
+import { useRouter } from 'next/router';
 
 type User = {
   id: string;
@@ -13,7 +14,8 @@ type AuthResponse = {
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
-
+  const router = useRouter();
+  
   useEffect(() => {
     // Check for a logged-in user in localStorage when the component mounts
     const storedUser = localStorage.getItem('user');
@@ -61,6 +63,7 @@ export const useAuth = () => {
   const logout = (): void => {
     setUser(null);
     localStorage.removeItem('user');
+    router.replace('/');
   };
 
   return {

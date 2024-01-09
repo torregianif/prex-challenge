@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../utils/useAuth';
+import styles from '../styles/Form.module.css'; 
 
 interface RegisterFormProps {
   onRegister?: () => void;
@@ -7,6 +8,7 @@ interface RegisterFormProps {
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const { register } = useAuth();
 
@@ -29,31 +31,43 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Username:
+    <>
+    <div className={styles.formContainer}>
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.inputGroup}>
+          <label htmlFor="name">Name</label>
           <input
             type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Password:
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
-        </label>
-      </div>
-      <button type="submit">Register</button>
-    </form>
+        </div>
+        <button type="submit" className={styles.submitButton}>Register</button>
+      </form>
+    </div>
+    </>
+    
+    
   );
 };
 

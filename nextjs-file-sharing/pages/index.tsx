@@ -25,9 +25,8 @@ const HomePage: React.FC = () => {
   return (
     <div style={{ textAlign: 'center', padding: '50px' }}>
       <h1>Welcome to Next.js File Sharing App</h1>
-      <h2>Login</h2>
       <LoginForm onLogin={handleLogin} />
-      <h2>Register</h2>
+      <h2>OR</h2>
       <RegisterForm onRegister={handleRegister} />
     </div>
   );
