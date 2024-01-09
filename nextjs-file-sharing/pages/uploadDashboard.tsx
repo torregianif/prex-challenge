@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Navbar from '@/components/NavBar';
 
 interface User {
   id: string;
@@ -60,24 +61,24 @@ console.log("selecteed", selectedUsers);
   };
 
   const handleFileUpload = async () => {
-    if (selectedFile && selectedUsers.length > 0) {
+    if (selectedFile ) {
       try {
-        // Upload file in memory
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        const response = await axios.post('/api/upload', formData);
+        const response = await axios.post('/api/uploadFile', formData);
         const sharedFile = response.data.file;
 
-        // Share file with selected users (replace with actual sharing logic)
-        await Promise.all(
-          selectedUsers.map((user) =>
-            axios.post('/api/shareFile', {
-              userId: user.id,
-              fileId: sharedFile.id,
-            })
-          )
-        );
+        if(selectedUsers.length>0){
+          await Promise.all(
+            selectedUsers.map((user) =>
+              axios.post('/api/shareFile', {
+                userId: user.id,
+                fileId: sharedFile.id,
+              })
+            )
+          );
+        }
 
         alert('File uploaded and shared successfully!');
       } catch (error) {
@@ -88,6 +89,7 @@ console.log("selecteed", selectedUsers);
 
   return (
     <div>
+      <Navbar />
       <h1>Dashboard</h1>
 
       <h2>Search Users</h2>
@@ -116,7 +118,6 @@ console.log("selecteed", selectedUsers);
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleFileUpload}>Upload and Share</button>
 
-      {/* Rest of the component rendering logic */}
     </div>
   );
 };

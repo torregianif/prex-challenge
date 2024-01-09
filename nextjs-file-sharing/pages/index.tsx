@@ -10,16 +10,16 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      router.replace('/dashboard');
+      router.replace('/uploadDashboard');
     }
   }, [user, router]);
 
   const handleLogin = () => {
-    router.replace('/dashboard');
+    router.replace('/uploadDashboard');
   };
 
   const handleRegister = () => {
-    router.replace('/dashboard');
+    router.replace('/uploadDashboard');
   };
 
   return (

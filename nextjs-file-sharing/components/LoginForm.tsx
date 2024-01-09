@@ -18,13 +18,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       setUsername('');
       setPassword('');
 
-      // Trigger callback on successful login if provided
       if (onLogin) {
         onLogin();
       }
     } catch (error) {
       console.error('Login error:', error);
-      // Handle login error (e.g., display error message to the user)
     }
   };
 
